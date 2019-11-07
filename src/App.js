@@ -4,13 +4,9 @@ import ExpenseForm from './components/ExpenseForm';
 import ExpenseList from './components/ExpenseList'
 import Alert from './components/Alert'
 import uuid from 'uuid/v4'
+import LightSpeed from 'react-reveal/LightSpeed';
 
-const initialExpenses = [
-  { id: uuid(), charge: 'rent', amount: 1600 },
-  { id: uuid(), charge: 'car payment', amount: 400 },
-  { id: uuid(), charge: 'credit card bill', amount: 1200 }
-];
-
+const initialExpenses = localStorage.getItem('expenses') ? JSON.parse(localStorage.getItem('expenses')) : [];
 
 function App() {
   // ********************** state value ********************
@@ -26,6 +22,13 @@ function App() {
   const [edit, setEdit] = useState(false)
   //Edit item
   const [id, setId] = useState(0);
+
+  // ***************** useEffect ******************************
+  useEffect(() => {
+    console.log('useEffect');
+    localStorage.setItem('expenses', JSON.stringify(expenses))
+  }, [expenses])
+
   // ********************** functionality ********************
   // Handle Charge
   const handleCharge = e => {
@@ -102,7 +105,9 @@ function App() {
     <>
       {alert.show && <Alert type={alert.type} text={alert.text} />}
       <Alert />
-      <h1>budget calculator</h1>
+      <LightSpeed left>
+        <h1>budget calculator</h1>
+      </LightSpeed>
       <main className='App'>
         <ExpenseForm
           charge={charge}
@@ -119,11 +124,14 @@ function App() {
           clearItems={clearItems}
         />
       </main>
-      <h1>total spending : <span className='total'>
-        $ {expenses.reduce((acc, curr) => {
-          return (acc += parseInt(curr.amount));
-        }, 0)}
-      </span></h1>
+
+      <h1>total spending :
+          <span className='total'>
+          $ {expenses.reduce((acc, curr) => {
+            return (acc += parseInt(curr.amount));
+          }, 0)}
+        </span>
+      </h1>
     </>
   )
 }

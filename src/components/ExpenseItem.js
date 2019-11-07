@@ -1,6 +1,5 @@
 import React from 'react'
 import { MdEdit, MdDelete } from 'react-icons/md'
-
 const ExpenseItem = ({ expense, handleDelete, handleEdit }) => {
 
     const { id, charge, amount } = expense;
@@ -10,7 +9,7 @@ const ExpenseItem = ({ expense, handleDelete, handleEdit }) => {
         <li className='item'>
             <div className='info'>
                 <span className='expense'>{charge}</span>
-                <span className='amount'>${amount}</span>
+                <span className='amount'>$ {amount}</span>
             </div>
             <div>
                 <button

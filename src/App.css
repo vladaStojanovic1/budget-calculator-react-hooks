@@ -161,6 +161,10 @@ label {
 .alert-success {
   background: var(--mainGreen);
 }
+label{
+  color: var(--mainBlack);
+}
+
 @media screen and (min-width: 601px) {
   .App,
   .list,
@@ -185,3 +189,4 @@ label {
     flex: 0 0 50%;
   }
 }
+
